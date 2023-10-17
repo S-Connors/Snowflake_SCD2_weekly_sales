@@ -48,4 +48,3 @@ join {{ source('ab_raw', 'inventory')}} on inv_date_sk = sold_date_sk and item_s
 where sold_date_sk >= '{{latest_wkly_date}}'
 group by 1, 2, 3, 4, 5
 
-#
