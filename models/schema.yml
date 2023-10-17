@@ -1,0 +1,76 @@
+vesrion: 2
+# added notes to ask bussness 
+
+models:
+  - name: daily_sales
+    tests:
+      - dbt_expectations.expect_grouped_row_values_to_have_recent_data:
+          group_by: [warehouse_sk]
+          timestamp_column: cal_dt
+          datepart: day
+          interval: 7
+    columns:
+      - name: warehouse_sk
+        tests:
+            - not_null
+            #found 1756 null values. - removed as all sales should have a warehouse attached
+      - name: item_sk
+        tests:
+            - not_null
+  - name: weekly_sales
+    columns:
+      - name: warehouse_sk
+        tests:
+            - not_null
+      - name: item_sk
+        tests:
+            - not_null
+  - name: promotion_item
+    columns:
+      - name: item_sk
+        tests:
+          - not_null
+      - name: promo_sk
+        tests:
+          - not_null
+      - name: p_start_date_sk
+        tests:
+          - not_null
+        # ran test came back null
+        # removed 2 null values as we are using this to track incremental load 
+
+  - name: customer_dim
+    columns:
+      - name: c_current_addr_sk
+        tests:
+          - not_null
+      - name: c_current_cdemo_sk
+        tests:
+          - not_null
+      - name: c_current_hdemo_sk
+        tests:
+          - not_null
+      - name: c_customer_sk
+        tests:
+          - not_null
+      - name: c_first_sales_date_sk
+          #ran test came back null
+          #can be considered a customer without selling somthing to them?
+      
+      - name: c_first_shipto_date_sk
+        #ran test came back null
+        #can be considered a customer without shipping to them?
+      
+      - name: c_last_review_date_sk
+        #ran test came back null 
+        #some customers have not been reviewed
+     
+      - name: ca_address_sk
+        tests:
+          - not_null
+      - name: cd_demo_sk
+        tests:
+          - not_null
+      - name: hd_income_band_sk
+        tests:
+          - not_null

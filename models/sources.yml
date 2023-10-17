@@ -1,0 +1,72 @@
+version: 2
+
+sources: 
+  - name: ab_raw
+    database: tpcds
+    schema: raw
+    tables: 
+      - name: catalog_sales
+        columns: 
+          - name: CS_WAREHOUSE_SK
+          - name: CS_ITEM_SK
+          - name: CS_SOLD_DATE_SK
+          - name: CS_QUANTITY
+          - name: cs_sales_price
+          - name: cs_net_profit
+      - name: web_sales
+        columns:
+          - name: ws_warehouse_sk
+          - name: ws_item_sk
+          - name: ws_sold_date_sk
+          - name: ws_quantity
+          - name: ws_sales_price
+          - name: ws_net_profit
+      - name: customer
+        columns: 
+          - name: c_customer_sk
+            tests:
+              - unique
+              - not_null
+      - name: customer_address
+        columns: 
+          - name: ca_address_sk
+            tests:
+              - unique
+              - not_null
+      - name: customer_demographics
+        columns: 
+          - name: cd_demo_sk
+            tests:
+              - unique
+              - not_null
+      - name: household_demographics
+        columns:
+          - name: hd_demo_sk
+            tests:
+              - unique
+              - not_null
+      - name: income_band
+        columns:
+          - name: ib_income_band_sk
+            tests:
+              - unique
+              - not_null
+      - name: date_dim
+        columns:
+          - name: d_date_sk
+            tests:
+              - unique
+              - not_null
+      - name: inventory
+      - name: promotion
+        columns:
+          - name: p_promo_sk
+            tests:
+              - unique
+              - not_null
+      - name: item
+        columns:
+          - name: i_item_sk
+            tests:
+              - unique
+              - not_null
